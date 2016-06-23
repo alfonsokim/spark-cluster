@@ -18,8 +18,11 @@ RUN apt-get -y install openssh-server
 RUN export CONFIGURE_OPTS=--disable-audit && cd /root && apt-get -b source pam && dpkg -i libpam-doc*.deb libpam-modules*.deb libpam-runtime*.deb libpam0g*.deb 
 
 # passwordless ssh
-# RUN ssh-keygen -q -N "" -t dsa -f /etc/ssh/ssh_host_dsa_key
-# RUN ssh-keygen -q -N "" -t rsa -f /etc/ssh/ssh_host_rsa_key
+RUN [ -e /etc/ssh/ssh_host_dsa_key ] && rm /etc/ssh/ssh_host_dsa_key
+RUN ssh-keygen -q -N "" -t dsa -f /etc/ssh/ssh_host_dsa_key
+RUN [ -e /etc/ssh/ssh_host_rsa_key ] && rm /etc/ssh/ssh_host_rsa_key
+RUN ssh-keygen -q -N "" -t rsa -f /etc/ssh/ssh_host_rsa_key
+RUN [ -e /root/.ssh/id_rsa ] && rm /root/.ssh/id_rsa
 RUN ssh-keygen -q -N "" -t rsa -f /root/.ssh/id_rsa
 RUN cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys
 
