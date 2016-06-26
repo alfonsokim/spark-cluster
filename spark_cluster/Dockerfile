@@ -57,11 +57,9 @@ ADD conf/hdfs-site.xml $HADOOP_PREFIX/etc/hadoop/hdfs-site.xml
 ADD conf/mapred-site.xml $HADOOP_PREFIX/etc/hadoop/mapred-site.xml
 ADD conf/yarn-site.xml $HADOOP_PREFIX/etc/hadoop/yarn-site.xml
 
-RUN ls -lrt /usr/lib/jvm/
-
 RUN $HADOOP_PREFIX/bin/hdfs namenode -format
 
-RUN ls -lrt /usr/local/hadoop/lib/native/
+RUN apt-get -y install telnet
 
 # -------------------------------------------------------
 # Spark
@@ -83,7 +81,7 @@ RUN chmod 700 /etc/bootstrap.sh
 # Spark ports
 EXPOSE 4040
 # Hdfs ports
-EXPOSE 50010 50020 50070 50075 50090
+EXPOSE 9000 50010 50020 50070 50075 50090
 # Mapred ports
 EXPOSE 19888
 #Yarn ports
