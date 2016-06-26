@@ -2,12 +2,10 @@
 
 $HADOOP_PREFIX/etc/hadoop/hadoop-env.sh
 
-rm /tmp/*.pid
-
 # installing libraries if any - (resource urls added comma separated to the ACP system variable)
 cd $HADOOP_PREFIX/share/hadoop/common ; for cp in ${ACP//,/ }; do  echo == $cp; curl -LO $cp ; done; cd -
 
-service sshd start
+service ssh start
 
 if [[ $1 = "-namenode" || $2 = "-namenode" ]]; then
   $HADOOP_PREFIX/sbin/start-dfs.sh
