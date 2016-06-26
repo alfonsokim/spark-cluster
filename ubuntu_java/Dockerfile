@@ -29,6 +29,7 @@ RUN cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys
 RUN sed  -i "/^[^#]*UsePAM/ s/.*/#&/"  /etc/ssh/sshd_config
 RUN echo "UsePAM no" >> /etc/ssh/sshd_config
 RUN echo "Port 2122" >> /etc/ssh/sshd_config
+RUN echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config
 
 RUN apt-get install software-properties-common -y
 
