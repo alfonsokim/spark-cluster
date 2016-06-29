@@ -57,6 +57,11 @@ ADD conf/hdfs-site.xml $HADOOP_PREFIX/etc/hadoop/hdfs-site.xml
 ADD conf/mapred-site.xml $HADOOP_PREFIX/etc/hadoop/mapred-site.xml
 ADD conf/yarn-site.xml $HADOOP_PREFIX/etc/hadoop/yarn-site.xml
 
+RUN mkdir -p /usr/local/hadoop/namenode
+RUN mkdir -p /usr/local/hadoop/datanode
+RUN mkdir -p /usr/local/hadoop/temp
+
+
 RUN $HADOOP_PREFIX/bin/hdfs namenode -format
 
 RUN apt-get -y install telnet
@@ -74,6 +79,8 @@ RUN /bin/cp -f /usr/share/zoneinfo/America/Mexico_City /etc/localtime
 ADD conf/bootstrap.sh /etc/bootstrap.sh
 RUN chown root:root /etc/bootstrap.sh
 RUN chmod 700 /etc/bootstrap.sh
+
+RUN ls -lrt /etc/bootstrap.sh
 
 # -------------------------------------------------------
 # Inicio
