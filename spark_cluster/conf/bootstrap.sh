@@ -8,12 +8,15 @@ cd $HADOOP_PREFIX/share/hadoop/common ; for cp in ${ACP//,/ }; do  echo == $cp; 
 service ssh start
 
 if [[ $1 = "-namenode" || $2 = "-namenode" ]]; then
-  $HADOOP_PREFIX/sbin/start-dfs.sh
   $HADOOP_PREFIX/sbin/start-yarn.sh
+  $HADOOP_PREFIX/sbin/start-dfs.sh
 fi
 
 if [[ `echo $1 | grep "datanode"` || `echo $2 | grep "datanode"` ]]; then
-  $HADOOP_PREFIX/sbin/start-dfs.sh
+  # $HADOOP_PREFIX/sbin/stop-dfs.sh
+  # $HADOOP_PREFIX/sbin/start-dfs.sh
+  $HADOOP_PREFIX/sbin/stop-all.sh
+  $HADOOP_PREFIX/sbin/start-all.sh
 fi
 
 if [[ $1 = "-d" || $2 = "-d" ]]; then
